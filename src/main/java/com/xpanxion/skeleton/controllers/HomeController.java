@@ -3,7 +3,9 @@ package com.xpanxion.skeleton.controllers;
 import javax.annotation.Resource;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.xpanxion.skeleton.service.TestService;
@@ -18,6 +20,12 @@ import com.xpanxion.skeleton.service.TestService;
 public class HomeController {
 
     private TestService testService;
+    
+    
+    @RequestMapping(value="/", method = RequestMethod.GET)
+	public String mainPage(ModelMap model) {
+	return "main_page";
+    }
 
     /**
      * The default controller action for the homepage. 
