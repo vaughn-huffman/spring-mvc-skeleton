@@ -18,7 +18,7 @@
 <h1>Users DB Info</h1>
 
 <table>
-<tr><th>ID</th><th>Username</th><th>Password</th></tr>
+<tr><th>ID</th><th>Username</th><th>Password</th><th colspan=2>Action</th></tr>
 <c:forEach var="user" items="${users}">
 	<tr>
 		<td>${user.id}</td><td>${user.username}</td><td>${user.password}</td>
