@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.stereotype.Repository;
 import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
@@ -12,9 +13,16 @@ import org.springframework.web.client.RestTemplate;
 import com.xpanxion.skeleton.dto.beans.UserBean;
 import com.xpanxion.skeleton.dto.entity.UserEntity;
 
+/**
+ * Implementation of the UserDao interface. 
+ * 
+ * @author vhuffman
+ *
+ */
+@Repository
 public class UserRESTDaoImpl implements UserDao {
 	
-	public static final String SERVER_URI = "http://localhost:8080/";
+	public static final String SERVER_URI = "http://localhost:8080/rest";
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
@@ -27,7 +35,7 @@ public class UserRESTDaoImpl implements UserDao {
         List<LinkedHashMap> users = restTemplate.getForObject(SERVER_URI+"/users", List.class);
         for(LinkedHashMap map : users){
             UserEntity userEntity = new UserEntity();
-            userEntity.setId((long) map.get("id"));
+            userEntity.setId(((Integer) map.get("id")).longValue()); 
             userEntity.setUsername((String) map.get("username"));
             userEntity.setPassword((String) map.get("password"));
             userEntities.add(userEntity);

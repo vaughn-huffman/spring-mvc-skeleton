@@ -29,7 +29,7 @@ public class RestAPIController {
 	//Service for Users activity
 	private UserService userService;
 
-	@RequestMapping(value = "**/user", method = RequestMethod.POST, produces="application/json")
+	@RequestMapping(value = "/user", method = RequestMethod.POST, produces="application/json")
 	public @ResponseBody UserBean postUserRB(@RequestBody UserBean user) {
 		return this.userService.addUser(user);
 	}
@@ -41,7 +41,7 @@ public class RestAPIController {
 	 * @return JSON for the updated user
 	 * 
 	 */
-	@RequestMapping(value = "**/user/{id}", method = RequestMethod.PUT, produces="application/json")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.PUT, produces="application/json")
 	public @ResponseBody UserBean updateUserRB(@PathVariable("id") long userId, @RequestBody UserBean user) {
 		return this.userService.updateUser(userId, user);
 	}
@@ -63,7 +63,7 @@ public class RestAPIController {
 	 * @return JSON for the deleted user
 	 * 
 	 */
-	@RequestMapping(value = "**/user/{id}", method = RequestMethod.DELETE, produces="application/json")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.DELETE, produces="application/json")
 	public @ResponseBody UserBean deleteUser(@PathVariable("id") long userId) {
 		return this.userService.deleteUser(userId);
 	}
@@ -74,7 +74,7 @@ public class RestAPIController {
 	 * @return JSON for all users in db
 	 * 
 	 */
-	@RequestMapping(value = "**/users", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/users", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody List<UserBean> getUsers() {
         return this.userService.getUsers();
 	}
@@ -86,7 +86,7 @@ public class RestAPIController {
 	 * @return JSON for a single user
 	 * 
 	 */
-	@RequestMapping(value = "**/user/{id}", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/user/{id}", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody UserBean getUser(@PathVariable("id") long userId, Model model) {
 		UserBean user = this.userService.getUser(userId);
         if (user != null) {
@@ -105,7 +105,7 @@ public class RestAPIController {
 	 * @return JSON for a single user
 	 * 
 	 */
-	@RequestMapping(value = "**/user", method = RequestMethod.GET, produces="application/json")
+	@RequestMapping(value = "/user", method = RequestMethod.GET, produces="application/json")
 	public @ResponseBody UserBean getUserid(@RequestParam("id") int userId) {
         return this.userService.getUser(userId);
 	}

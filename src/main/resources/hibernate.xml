@@ -9,7 +9,7 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
         
         <!-- Uncomment the properties placeholder line below with the correct properties for the database you are using. -->
-        <context:property-placeholder location="classpath:jdbc.properties"/>
+        <context:property-placeholder location="classpath:jdbc.properties"/> 
         
         <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
         	<property name="driverClassName" value="${jdbc.driver}"/>

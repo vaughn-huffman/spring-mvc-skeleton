@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.apache.log4j.Logger;
 import org.hibernate.HibernateException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -22,7 +23,11 @@ import com.xpanxion.skeleton.dto.entity.UserEntity;
 @Repository
 public class UserDaoImpl implements UserDao {
 
+	//Logger
+	final static Logger logger = Logger.getLogger(Class.class);
+	
 	private SessionFactory sessionFactory;
+	
 	
     /**
      * Returns all of the users.
@@ -119,9 +124,9 @@ public class UserDaoImpl implements UserDao {
 			entity = getUser(userId);
 		}
 		
-		System.out.println("userid " + entity.getId());
-		System.out.println("username " + entity.getUsername());
-		System.out.println("user pw " + entity.getPassword());
+		logger.info("userid " + entity.getId());
+		logger.info("username " + entity.getUsername());
+		logger.info("userPW " + entity.getPassword());
 		
 		return entity;
 	}

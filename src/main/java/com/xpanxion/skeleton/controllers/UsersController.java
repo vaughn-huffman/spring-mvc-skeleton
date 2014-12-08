@@ -116,12 +116,11 @@ public class UsersController {
 	}
 	
 	//Update user method
-	// update/update path due to update_usr.jsp being used from New and from UsersMV
 	@RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
 	public String updateUser(@PathVariable("id") long userId, @ModelAttribute("user") UserBean user, Model model) {
 		UserBean userBean =  this.userService.updateUser(user.getId(), user);
 		model.addAttribute("user", userBean);
-		return "redirect:/users/MV"; //"updated_user";
+		return "redirect:/users/MV";  //"updated_user";
 	}
 	
 	//Delete user
