@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 
+import javax.annotation.Resource;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.util.LinkedMultiValueMap;
@@ -12,6 +14,7 @@ import org.springframework.web.client.RestTemplate;
 
 import com.xpanxion.skeleton.dto.beans.UserBean;
 import com.xpanxion.skeleton.dto.entity.UserEntity;
+import com.xpanxion.skeleton.service.UserService;
 
 /**
  * Implementation of the UserDao interface. 
@@ -22,12 +25,14 @@ import com.xpanxion.skeleton.dto.entity.UserEntity;
 @Repository
 public class UserRESTDaoImpl implements UserDao {
 	
-	public static final String SERVER_URI = "http://localhost:8080/rest";
+	private static final String SERVER_URI = "http://localhost:8080/rest";
+	
+	private RestTemplate restTemplate;
 	
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Override
 	public List<UserEntity> getAllUsers() {
-		RestTemplate restTemplate = new RestTemplate();
+	//	RestTemplate restTemplate = new RestTemplate();
 		List<UserEntity> userEntities = new ArrayList<UserEntity>();
 				
         //we can't get List<UserBean> because JSON converter doesn't know the type of
@@ -45,7 +50,7 @@ public class UserRESTDaoImpl implements UserDao {
 
 	@Override
 	public UserEntity getUser(long id) {
-		RestTemplate restTemplate = new RestTemplate();
+//		RestTemplate restTemplate = new RestTemplate();
 		UserBean user = restTemplate.getForObject(SERVER_URI+"/user/{id}", UserBean.class, id);
 		UserEntity userEntity = new UserEntity();
 		BeanUtils.copyProperties(user, userEntity);
@@ -54,7 +59,7 @@ public class UserRESTDaoImpl implements UserDao {
 
 	@Override
 	public UserEntity addUser(UserEntity user) {
-		RestTemplate restTemplate = new RestTemplate();
+//		RestTemplate restTemplate = new RestTemplate();
 		UserBean userBean;
 		UserEntity userEntity = new UserEntity();
 		userBean = restTemplate.postForObject(SERVER_URI+"/user", user, UserBean.class);
@@ -67,7 +72,7 @@ public class UserRESTDaoImpl implements UserDao {
 		MultiValueMap<String, String> map = new LinkedMultiValueMap<String, String>();
 		map.add("username", "Bob");
 		map.add("password", "pw");
-		RestTemplate restTemplate = new RestTemplate();
+//		RestTemplate restTemplate = new RestTemplate();
 		UserBean userBean = restTemplate.getForObject(SERVER_URI+"/user/{id}", UserBean.class, 2);
 		System.out.println("Original: user: Name="+user.getUsername()+",Password="+user.getPassword());
 		user.setPassword("updatedpassword");
@@ -78,10 +83,15 @@ public class UserRESTDaoImpl implements UserDao {
 
 	@Override
 	public UserEntity deleteUser(long id) {
-		RestTemplate restTemplate = new RestTemplate();
+//		RestTemplate restTemplate = new RestTemplate();
 		UserEntity userEntity = this.getUser(id);
 		restTemplate.delete(SERVER_URI+"/user/{id}", UserBean.class, id);
 		return userEntity;
 	}
+	
+    //@Resource
+    public void setRestTemplate(RestTemplate restTemplate) {
+        this.restTemplate = restTemplate;
+    }
 
 }

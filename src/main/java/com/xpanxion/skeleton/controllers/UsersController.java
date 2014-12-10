@@ -39,6 +39,7 @@ public class UsersController {
 	//Service for Users activity
 	private UserService userService;
 	
+
 	
 	@ModelAttribute("userbean")
 	public UserBean getUserBeanObject() {
